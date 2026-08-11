@@ -1,0 +1,4 @@
+# appsettings - connection strings and secrets
+**/appsettings.json
+**/appsettings.Development.json
+**/appsettings.Production.json
