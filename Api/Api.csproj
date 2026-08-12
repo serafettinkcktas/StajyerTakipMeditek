@@ -7,8 +7,19 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <RuntimeHostConfigurationOption Include="System.Runtime.EnableCETShadowStack" Value="false" />
+        <RuntimeHostConfigurationOption Include="System.Runtime.EnableWriteXorExecute" Value="false" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Dapper" Version="2.1.79" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.18"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.18" />
+        <PackageReference Include="Scalar.AspNetCore" Version="2.16.18" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Application\Application.csproj" />
+      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
