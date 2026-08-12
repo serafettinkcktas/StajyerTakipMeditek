@@ -16,7 +16,7 @@ public class AddMentorValidator : AbstractValidator<CreateMentorCommand>
             .MaximumLength(50).WithMessage("Soyad en fazla 50 karakter olabilir");
 
         RuleFor(x => x.Email)
-            .NotEmpty().WithMessage("Email boş olamaz")
+            .MinimumLength(3).WithMessage("Geçerli bir email adresi giriniz")
             .EmailAddress().WithMessage("Geçerli bir email adresi giriniz")
             .MaximumLength(100).WithMessage("Email en fazla 100 karakter olabilir");
     }
