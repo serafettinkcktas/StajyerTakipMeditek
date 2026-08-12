@@ -24,6 +24,15 @@
         "DOTNET_EnableCETShadowStack": "0",
         "COMPlus_EnableCETShadowStack": "0"
       }
+    },
+    "Test-Lan": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://0.0.0.0:5286",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }
