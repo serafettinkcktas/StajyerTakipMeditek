@@ -1,4 +1,4 @@
-namespace Application.Command.Intern;
+    namespace Application.Command.Intern;
 
 public class CreateInternCommand
 {
@@ -11,4 +11,5 @@ public class CreateInternCommand
     public int Class { get; set; }
     public Guid? MentorId { get; set; }
     public DateTime? StartDate { get; set; }
+    public DateTime? EndDate { get; set; }
 }
