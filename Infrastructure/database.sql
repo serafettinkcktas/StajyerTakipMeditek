@@ -49,3 +49,33 @@ BEGIN
         CONSTRAINT FK_Mentors_UserProfiles FOREIGN KEY (ProfileId) REFERENCES UserProfiles(Id)
     );
 END
+
+-- Stajyer Durumları
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'InternStatuses')
+BEGIN
+    CREATE TABLE InternStatuses (
+        Id UNIQUEIDENTIFIER PRIMARY KEY,
+        Name NVARCHAR(50) NOT NULL
+    );
+END
+
+-- Stajyerler
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Interns')
+BEGIN
+    CREATE TABLE Interns (
+        Id UNIQUEIDENTIFIER PRIMARY KEY,
+        AccountId UNIQUEIDENTIFIER NOT NULL,
+        ProfileId UNIQUEIDENTIFIER NOT NULL,
+        MentorId UNIQUEIDENTIFIER NULL,
+        University NVARCHAR(100) NOT NULL,
+        Department NVARCHAR(100) NOT NULL,
+        Class INT NOT NULL,
+        StartDate DATETIME2 NULL,
+        EndDate DATETIME2 NULL,
+        StatusId UNIQUEIDENTIFIER NOT NULL,
+        CONSTRAINT FK_Interns_Accounts FOREIGN KEY (AccountId) REFERENCES Accounts(Id),
+        CONSTRAINT FK_Interns_UserProfiles FOREIGN KEY (ProfileId) REFERENCES UserProfiles(Id),
+        CONSTRAINT FK_Interns_Mentors FOREIGN KEY (MentorId) REFERENCES Mentors(Id),
+        CONSTRAINT FK_Interns_InternStatuses FOREIGN KEY (StatusId) REFERENCES InternStatuses(Id)
+    );
+END

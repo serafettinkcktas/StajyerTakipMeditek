@@ -7,8 +7,12 @@ public class UserProfileHelper
     /// <summary>
     /// Yeni bir kullanıcı profili oluşturur
     /// </summary>
-    public UserProfile CreateUserProfile(Guid id, Guid accountId, string name, string surname, string email)
+    public UserProfile CreateUserProfile(Guid id, Guid accountId, string name, string surname, string email, string? phoneNumber = null)
     {
-        return new UserProfile(id, accountId, name, surname, email);
+        var profile = new UserProfile(id, accountId, name, surname, email)
+        {
+            PhoneNumber = phoneNumber
+        };
+        return profile;
     }
 }

@@ -61,4 +61,43 @@ public class AccountRepository : BaseRepository<Account>, IAccountRepository
             throw;
         }
     }
+
+    public async Task<bool> CreateIntern(Account account, UserProfile profile, Intern intern)
+    {
+        const string insertAccountSql = @"
+            INSERT INTO Accounts (Id, Email, Password, RoleId)
+            VALUES (@Id, @Email, @Password, @RoleId);";
+
+        const string insertProfileSql = @"
+            INSERT INTO UserProfiles (Id, AccountId, Name, Surname, Email, PhoneNumber)
+            VALUES (@Id, @AccountId, @Name, @Surname, @Email, @PhoneNumber);";
+
+        const string insertInternSql = @"
+            INSERT INTO Interns (Id, AccountId, ProfileId, MentorId, University, Department, Class, StartDate, EndDate, StatusId)
+            VALUES (@Id, @AccountId, @ProfileId, @MentorId, @University, @Department, @Class, @StartDate, @EndDate, @StatusId);";
+
+        using var connection = _connectionFactory.CreateConnection();
+
+        if (connection.State != System.Data.ConnectionState.Open)
+        {
+            connection.Open();
+        }
+
+        using var transaction = connection.BeginTransaction();
+
+        try
+        {
+            await connection.ExecuteAsync(insertAccountSql, account, transaction);
+            await connection.ExecuteAsync(insertProfileSql, profile, transaction);
+            await connection.ExecuteAsync(insertInternSql, intern, transaction);
+
+            transaction.Commit();
+            return true;
+        }
+        catch
+        {
+            transaction.Rollback();
+            throw;
+        }
+    }
 }

@@ -1,3 +1,4 @@
+using Application.Command.Intern;
 using Application.Command.Mentor;
 using Application.UseCases.Admin;
 using Microsoft.AspNetCore.Mvc;
@@ -6,10 +7,14 @@ namespace Api.Controller;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-public class AdminController(CreateRoleUseCase createRoleUseCase, AddMentorUseCase addMentorUseCase) : ControllerBase
+public class AdminController(
+    CreateRoleUseCase createRoleUseCase,
+    AddMentorUseCase addMentorUseCase,
+    AddInternUseCase addInternUseCase) : ControllerBase
 {
     private readonly CreateRoleUseCase _createRoleUseCase = createRoleUseCase;
     private readonly AddMentorUseCase _addMentorUseCase = addMentorUseCase;
+    private readonly AddInternUseCase _addInternUseCase = addInternUseCase;
 
     /// <summary>
     /// Yeni bir rol oluşturur (Admin, Mentor, Stajyer vb.)
@@ -30,6 +35,18 @@ public class AdminController(CreateRoleUseCase createRoleUseCase, AddMentorUseCa
     public async Task<IActionResult> AddMentor([FromBody] CreateMentorCommand command)
     {
         var result = await _addMentorUseCase.AddMentorAsync(command);
+        if (result.IsSuccess)
+            return Ok(result);
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Yeni bir stajyer ekler. Admin temel bilgileri girer, sistem otomatik şifre üretir.
+    /// </summary>
+    [HttpPost]
+    public async Task<IActionResult> AddIntern([FromBody] CreateInternCommand command)
+    {
+        var result = await _addInternUseCase.AddInternAsync(command);
         if (result.IsSuccess)
             return Ok(result);
         return BadRequest(result);
