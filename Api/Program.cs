@@ -3,6 +3,7 @@ using Application.UseCases.Admin;
 using Application.Validation.Mentor;
 using Domain.Interface;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Infrastructure.Persistence;
 using Infrastructure.Repository;
 using Infrastructure.Seed;
@@ -34,6 +35,7 @@ builder.Services.AddScoped<AddMentorUseCase>();
 builder.Services.AddScoped<RoleSeed>();
 
 // Validation
+builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<AddMentorValidator>();
 
 // CORS
