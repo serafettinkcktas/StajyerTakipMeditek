@@ -1,4 +1,5 @@
 using Application.Common.Helpers;
+using Application.Interface;
 using Application.UseCases.Admin;
 using Application.Validation.Intern;
 using Application.Validation.Mentor;
@@ -22,6 +23,7 @@ builder.Services.AddSingleton<IDbConnectionFactory, SqlConnectionHandler>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IInternStatusRepository, InternStatusRepository>();
+builder.Services.AddScoped<IMentorRepository, MentorRepository>();
 
 // Helpers
 builder.Services.AddScoped<AccountHelper>();
@@ -33,6 +35,7 @@ builder.Services.AddScoped<InternHelper>();
 builder.Services.AddScoped<CreateRoleUseCase>();
 builder.Services.AddScoped<AddMentorUseCase>();
 builder.Services.AddScoped<AddInternUseCase>();
+builder.Services.AddScoped<GetMentorsUseCase>();
 
 // Seed
 builder.Services.AddScoped<RoleSeed>();

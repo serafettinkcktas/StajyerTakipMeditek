@@ -10,11 +10,13 @@ namespace Api.Controller;
 public class AdminController(
     CreateRoleUseCase createRoleUseCase,
     AddMentorUseCase addMentorUseCase,
-    AddInternUseCase addInternUseCase) : ControllerBase
+    AddInternUseCase addInternUseCase,
+    GetMentorsUseCase getMentorsUseCase) : ControllerBase
 {
     private readonly CreateRoleUseCase _createRoleUseCase = createRoleUseCase;
     private readonly AddMentorUseCase _addMentorUseCase = addMentorUseCase;
     private readonly AddInternUseCase _addInternUseCase = addInternUseCase;
+    private readonly GetMentorsUseCase _getMentorsUseCase = getMentorsUseCase;
 
     /// <summary>
     /// Yeni bir rol oluşturur (Admin, Mentor, Stajyer vb.)
@@ -47,6 +49,18 @@ public class AdminController(
     public async Task<IActionResult> AddIntern([FromBody] CreateInternCommand command)
     {
         var result = await _addInternUseCase.AddInternAsync(command);
+        if (result.IsSuccess)
+            return Ok(result);
+        return BadRequest(result);
+    }
+
+    /// <summary>
+    /// Tüm aktif mentorları listeler.
+    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> GetMentors()
+    {
+        var result = await _getMentorsUseCase.GetMentorsAsync();
         if (result.IsSuccess)
             return Ok(result);
         return BadRequest(result);
