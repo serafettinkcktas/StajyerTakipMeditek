@@ -17,3 +17,6 @@
 # .NET build outputs
 bin/
 obj/
+
+# Local agent rules - only local, not pushed to repo
+AGENTS.md
