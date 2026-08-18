@@ -4,17 +4,19 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <CETCompat>false</CETCompat>
+        <EnableCETShadowStack>false</EnableCETShadowStack>
+        <UseAppHost>false</UseAppHost>
     </PropertyGroup>
 
     <ItemGroup>
-        <RuntimeHostConfigurationOption Include="System.Runtime.EnableCETShadowStack" Value="true" />
+        <RuntimeHostConfigurationOption Include="System.Runtime.EnforceCETShadowStack" Value="false" />
         <RuntimeHostConfigurationOption Include="System.Runtime.EnableWriteXorExecute" Value="false" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.1.79" />
         <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.18" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.18" />
         <PackageReference Include="Scalar.AspNetCore" Version="2.16.18" />
     </ItemGroup>
