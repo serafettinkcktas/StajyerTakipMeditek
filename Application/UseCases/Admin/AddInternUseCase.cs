@@ -56,6 +56,7 @@ public class AddInternUseCase(
             command.Department,
             command.Class,
             command.StartDate,
+            command.EndDate,
             status.Id);
 
         var isCreated = await _accountRepository.CreateIntern(account, profile, intern);
