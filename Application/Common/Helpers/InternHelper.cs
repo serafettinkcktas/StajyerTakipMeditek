@@ -16,6 +16,7 @@ public class InternHelper
         string department,
         int classLevel,
         DateTime? startDate,
+        DateTime? endDate,
         Guid statusId)
     {
         return new Intern
@@ -28,8 +29,9 @@ public class InternHelper
             Department = department,
             Class = classLevel,
             StartDate = startDate,
-            EndDate = null,
-            StatusId = statusId
+            EndDate = endDate,
+            StatusId = statusId,
+            IsDeleted = false
         };
     }
 }

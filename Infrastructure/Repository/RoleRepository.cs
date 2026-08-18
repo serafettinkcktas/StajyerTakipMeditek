@@ -21,6 +21,17 @@ public class RoleRepository : BaseRepository<Role>, IRoleRepository
         return await connection.QueryFirstOrDefaultAsync<Role>(sql, new { Name = name });
     }
 
+    public async Task<Role?> GetRoleByIdAsync(Guid id)
+    {
+        const string sql = @"
+            SELECT Id, Name
+            FROM Roles
+            WHERE Id = @Id";
+
+        using var connection = _connectionFactory.CreateConnection();
+        return await connection.QueryFirstOrDefaultAsync<Role>(sql, new { Id = id });
+    }
+
     public async Task<bool> CreateRoleAsync(Role role)
     {
         const string sql = @"
