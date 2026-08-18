@@ -12,4 +12,5 @@ public class Intern
     public DateTime? StartDate { get; set; } // zorunlu kilmadim baslangictan once bir atama yapilabilir olsun diye
     public DateTime? EndDate { get; set; }
     public Guid StatusId { get; set; }
+    public bool IsDeleted { get; set; } = false;
 }

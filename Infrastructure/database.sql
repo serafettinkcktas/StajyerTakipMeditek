@@ -73,9 +73,24 @@ BEGIN
         StartDate DATETIME2 NULL,
         EndDate DATETIME2 NULL,
         StatusId UNIQUEIDENTIFIER NOT NULL,
+        IsDeleted BIT,
         CONSTRAINT FK_Interns_Accounts FOREIGN KEY (AccountId) REFERENCES Accounts(Id),
         CONSTRAINT FK_Interns_UserProfiles FOREIGN KEY (ProfileId) REFERENCES UserProfiles(Id),
         CONSTRAINT FK_Interns_Mentors FOREIGN KEY (MentorId) REFERENCES Mentors(Id),
         CONSTRAINT FK_Interns_InternStatuses FOREIGN KEY (StatusId) REFERENCES InternStatuses(Id)
+    );
+END
+
+-- Refresh Tokenlar
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'RefreshTokens')
+BEGIN
+    CREATE TABLE RefreshTokens (
+        Id UNIQUEIDENTIFIER PRIMARY KEY,
+        AccountId UNIQUEIDENTIFIER NOT NULL,
+        Token NVARCHAR(500) NOT NULL,
+        ExpiresAt DATETIME2 NOT NULL,
+        RevokedAt DATETIME2 NULL,
+        CreatedAt DATETIME2 NOT NULL,
+        CONSTRAINT FK_RefreshTokens_Accounts FOREIGN KEY (AccountId) REFERENCES Accounts(Id)
     );
 END
